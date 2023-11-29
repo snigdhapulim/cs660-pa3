@@ -11,6 +11,10 @@ namespace db {
  */
     class JoinPredicate {
         // TODO pa3.1: add private members
+    private:
+        int field1;
+        int field2;
+        Predicate::Op op;
     public:
         /**
          * Constructor -- create a new predicate over two fields of two tuples.

@@ -26,6 +26,7 @@ void Filter::open() {
 void Filter::close() {
     // TODO pa3.1: some code goes here
     child->close();
+    Operator::close();
 }
 
 void Filter::rewind() {
