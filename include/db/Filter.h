@@ -11,7 +11,7 @@ namespace db {
     class Filter : public Operator {
         // TODO pa3.1: add private members
     private:
-        Predicate *predicate;
+        Predicate predicate;
         DbIterator *child;
     protected:
         /**

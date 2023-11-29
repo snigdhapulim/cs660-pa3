@@ -3,15 +3,13 @@
 
 using namespace db;
 
-Filter::Filter(Predicate p, DbIterator *child) {
+Filter::Filter(Predicate p, DbIterator *child) : predicate(p), child(child) {
     // TODO pa3.1: some code goes here
-    this->predicate = &p;
-    this->child = child;
 }
 
 Predicate *Filter::getPredicate() {
     // TODO pa3.1: some code goes here
-    return predicate;
+    return &predicate;
 }
 
 const TupleDesc &Filter::getTupleDesc() const {
@@ -22,6 +20,7 @@ const TupleDesc &Filter::getTupleDesc() const {
 void Filter::open() {
     // TODO pa3.1: some code goes here
     child->open();
+    Operator::open();
 }
 
 void Filter::close() {
@@ -48,16 +47,12 @@ void Filter::setChildren(std::vector<DbIterator *> children) {
 }
 
 std::optional<Tuple> Filter::fetchNext() {
-
-    std::cout << 'is it in the open function?' << std::endl;
     // TODO pa3.1: some code goes here
     while (child->hasNext()) {
         std::optional<Tuple> tuple = child->next();
-        if (predicate->filter(tuple.value())) {
+        if (tuple && getPredicate()->filter(*tuple)) { // Check if tuple has a value and then apply the filter
             return tuple;
         }
     }
     return std::nullopt;
-
-
 }
