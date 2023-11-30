@@ -19,6 +19,7 @@ static int count(db::DbIterator *it) {
 }
 
 TEST(JoinTest, test) {
+
     db::TupleDesc td = db::Utility::getTupleDesc(3);
 
     db::HeapFile table("table.dat", td);

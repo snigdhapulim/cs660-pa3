@@ -16,6 +16,15 @@ namespace db {
      */
     class Aggregate : public Operator {
         // TODO pa3.2: add private members
+    private:
+        DbIterator *child;
+        int afield;
+        int gfield = Aggregator::NO_GROUPING;
+        Aggregator::Op aop;
+        std::unique_ptr<Aggregator> aggregator;
+        DbIterator* aggIterator;
+        TupleDesc tupleDesc;
+
     protected:
         /**
          * Returns the next tuple. If there is a group by field, then the first
